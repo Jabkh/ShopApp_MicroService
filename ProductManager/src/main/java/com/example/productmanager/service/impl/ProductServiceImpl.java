@@ -37,7 +37,6 @@ public class ProductServiceImpl implements IProductService {
         }
     }
 
-
     @Override
     public List<ProductDtoResponse> getProductsByName(String name) {
         List<Product> products = productRepository.findByName(name);
@@ -57,7 +56,6 @@ public class ProductServiceImpl implements IProductService {
             throw new RuntimeException("Product not found");
         }
     }
-
 
     @Override
     public ProductDtoResponse createProduct(ProductDtoRequest productDtoRequest) {
