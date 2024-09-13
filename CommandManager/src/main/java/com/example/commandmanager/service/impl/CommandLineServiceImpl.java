@@ -1,5 +1,6 @@
 package com.example.commandmanager.service.impl;
 
+import com.example.commandmanager.client.ProductClient;
 import com.example.commandmanager.dto.command.CommandDtoRequest;
 import com.example.commandmanager.dto.command.CommandDtoResponse;
 import com.example.commandmanager.dto.commandLine.CommandLineDtoRequest;
@@ -20,11 +21,14 @@ public class CommandLineServiceImpl implements ICommandLineService {
 
     private final CommandLineRepository commandLineRepository;
     private final CommandRepository commandRepository;
+    private final ProductClient productClient;
+
 
     @Autowired
-    public CommandLineServiceImpl(CommandLineRepository commandLineRepository, CommandRepository commandRepository) {
+    public CommandLineServiceImpl(CommandLineRepository commandLineRepository, CommandRepository commandRepository, ProductClient productClient) {
         this.commandLineRepository = commandLineRepository;
         this.commandRepository = commandRepository;
+        this.productClient = productClient;
     }
 
     @Override
@@ -87,7 +91,7 @@ public class CommandLineServiceImpl implements ICommandLineService {
                 .id(commandLine.getId())
                 .quantity(commandLine.getQuantity())
                 .subTotal(commandLine.getSubTotal())
-                .productId(commandLine.getProductId())
+                .product(productClient.getProductById(commandLine.getProductId()))
                 .commandId(commandLine.getCommand().getId())
                 .build();
     }
